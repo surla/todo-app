@@ -1,14 +1,25 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { RootState } from "../../app/store";
+import TodoItem from "./TodoItem";
 
 export default function TodoList() {
+  const todos = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch();
+
   return (
-    <ul>
-      <li>Todo 1</li>
-      <li>Todo 2</li>
-      <li>Todo 3</li>
-      <li>Todo 4</li>
-    </ul>
+    <div>
+      <ul>
+        {todos.map((todo) => {
+          return (
+            <TodoItem
+              id={todo.id}
+              text={todo.text}
+              completed={todo.completed}
+            />
+          );
+        })}
+      </ul>
+    </div>
   );
 }
